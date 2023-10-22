@@ -1,6 +1,7 @@
 # pvr.hts-tvhead-client-on-LG-webOS
-
-pvr.hts-tvhead client Add-on for Kodi 21.0-ALPHA3, Copiled for LG webOS.
+# inputstream.ffmpegdirect-on-LG-webOS
+inputstream.ffmpegdirect Add-on for Kodi 21.0-ALPHA3, Compiled for LG webOS.
+pvr.hts-tvhead client Add-on for Kodi 21.0-ALPHA3, Compiled for LG webOS.
 
 It is not installed by Kodi via .ZIP as usual, but must be copied manually to TV.
 
