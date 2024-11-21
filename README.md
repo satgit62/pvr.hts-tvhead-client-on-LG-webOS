@@ -9,3 +9,6 @@ Unzip the inputstream.ffmpegdirect.zip and copy the folder inputstream.ffmpegdir
 Unzip the pvr.hts-tvhead.zip and copy the folder pvr.vuplus to `/media/developer/apps/usr/palm/applications/org.xbmc.kodi/addons/` on the TV using FileZilla. 
 
 Have fun with it.
+
+# Quelle: 
+https://github.com/xbmc/repo-binary-addons?tab=GPL-2.0-1-ov-file#readme
