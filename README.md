@@ -11,4 +11,4 @@ Unzip the pvr.hts-tvhead.zip and copy the folder pvr.vuplus to `/media/developer
 Have fun with it.
 
 # Quelle: 
-https://github.com/xbmc/repo-binary-addons?tab=GPL-2.0-1-ov-file#readme
+[https://github.com/xbmc/repo-binary-addons?tab=GPL-2.0-1-ov-file#readme](https://github.com/xbmc/repo-binary-addons)
