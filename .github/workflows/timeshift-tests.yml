@@ -1,0 +1,15 @@
+name: Timeshift regression tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  timeshift:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Install host test dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake ninja-build pkg-config libavcodec-dev libavutil-dev
+      - name: Test patched production source with address and undefined behavior sanitizers
+        run: bash scripts/test.sh "$RUNNER_TEMP/timeshift-tests"

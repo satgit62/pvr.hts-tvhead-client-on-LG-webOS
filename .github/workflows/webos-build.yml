@@ -1,0 +1,32 @@
+name: Build Omega webOS ARM add-on
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake ninja-build pkg-config curl git patch autoconf automake libtool nasm yasm python3 unzip
+      - name: Fetch verified sources and SDK
+        run: bash scripts/fetch-sources.sh "$RUNNER_TEMP/webos-addon"
+      - name: Cross-compile dependencies
+        run: bash scripts/build-dependencies.sh "$RUNNER_TEMP/webos-addon"
+      - name: Cross-compile add-on
+        run: bash scripts/build-addon.sh "$RUNNER_TEMP/webos-addon"
+      - name: Package and checksum
+        run: python3 scripts/package.py "$RUNNER_TEMP/webos-addon" dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: inputstream-ffmpegdirect-omega-webos-armv7
+          path: dist/*
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-logs
+          path: ${{ runner.temp }}/webos-addon/build/*.log
