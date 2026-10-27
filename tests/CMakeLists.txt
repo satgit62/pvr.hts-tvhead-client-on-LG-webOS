@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.16)
+project(webos_timeshift_regressions LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(NOT ADDON_SOURCE)
+  message(FATAL_ERROR "Pass -DADDON_SOURCE=/path/to/patched/inputstream.ffmpegdirect")
+endif()
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(AVCODEC REQUIRED IMPORTED_TARGET libavcodec libavutil)
+add_executable(timeshift_regression timeshift_regression.cpp
+  ${ADDON_SOURCE}/src/stream/TimeshiftBuffer.cpp
+  ${ADDON_SOURCE}/src/stream/TimeshiftSegment.cpp
+  ${ADDON_SOURCE}/src/utils/DiskUtils.cpp)
+target_include_directories(timeshift_regression PRIVATE stubs ${ADDON_SOURCE}/src)
+target_link_libraries(timeshift_regression PRIVATE PkgConfig::AVCODEC)
+target_compile_options(timeshift_regression PRIVATE -Wall -Wextra -g -fno-omit-frame-pointer -fsanitize=address,undefined)
+target_link_options(timeshift_regression PRIVATE -fsanitize=address,undefined)
+enable_testing()
+foreach(scenario batched-writes disk-seek reload-segment unavailable-storage empty-segment)
+  add_test(NAME ${scenario} COMMAND timeshift_regression ${scenario})
+endforeach()

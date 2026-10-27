@@ -1,0 +1,3 @@
+[submodule "upstream/inputstream.ffmpegdirect"]
+	path = upstream/inputstream.ffmpegdirect
+	url = https://github.com/xbmc/inputstream.ffmpegdirect.git
